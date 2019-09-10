@@ -32,7 +32,7 @@ import (
 	"strings"
 	"time"
 
-	"k8s.io/api/core/v1"
+	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 	"k8s.io/apimachinery/pkg/util/errors"
 	"k8s.io/apimachinery/pkg/util/wait"
@@ -452,7 +452,7 @@ func (util *RBDUtil) AttachDisk(b rbdMounter) (string, error) {
 				outputList = append(outputList, output...)
 				return "", fmt.Errorf("rbd: map failed %v, rbd output: %s", errors.NewAggregate(errList), string(outputList))
 			}
-			devicePath, mapped = waitForPath(b.Pool, b.Image, 10 /*maxRetries*/, true /*useNbdDrive*/)
+			devicePath, mapped = waitForPath(b.Pool, b.Image, 10 /*maxRetries*/, true /*useNbdDriver*/)
 		} else {
 			devicePath, mapped = waitForPath(b.Pool, b.Image, 10 /*maxRetries*/, false /*useNbdDriver*/)
 		}
